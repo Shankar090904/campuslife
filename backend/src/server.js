@@ -4,11 +4,10 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 require('dotenv').config();
 
-// Import routes (will be created next)
-// const authRoutes = require('./routes/auth');
-// const resourceRoutes = require('./routes/resources');
-// const bookingRoutes = require('./routes/bookings');
-// const analyticsRoutes = require('./routes/analytics');
+// Import routes
+const authRoutes = require('./routes/auth');
+const resourceRoutes = require('./routes/resources');
+const bookingRoutes = require('./routes/bookings');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,11 +28,10 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API Routes (will be uncommented once routes are created)
-// app.use('/api/auth', authRoutes);
-// app.use('/api/resources', resourceRoutes);
-// app.use('/api/bookings', bookingRoutes);
-// app.use('/api/analytics', analyticsRoutes);
+// API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Welcome Route
 app.get('/api', (req, res) => {
@@ -44,8 +42,7 @@ app.get('/api', (req, res) => {
       health: '/health',
       auth: '/api/auth',
       resources: '/api/resources',
-      bookings: '/api/bookings',
-      analytics: '/api/analytics'
+      bookings: '/api/bookings'
     }
   });
 });
@@ -71,7 +68,7 @@ app.use((err, req, res, next) => {
 // Start Server
 app.listen(PORT, () => {
   console.log(`🚀 Campus Resource Orchestrator API running on port ${PORT}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV}`);
+  console.log(`📝 Environment: ${process.env.NODE_ENV}`);
   console.log(`📊 Visit http://localhost:${PORT}/api for API info`);
 });
 
